@@ -1,0 +1,11 @@
+{
+  "name": "spratify",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^6.8.0"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
