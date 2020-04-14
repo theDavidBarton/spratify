@@ -47,17 +47,14 @@ function endpointCreation() {
     const port = process.env.PORT || 5000
 
     app.use(compression())
-
-    /*
     app.use(express.static(path.join(__dirname, 'client/build')))
     // required to serve SPA on heroku production without routing problems; it will skip only 'api' calls
     if (process.env.NODE_ENV === 'production') {
-      app.get(/^((?!(api)).)*$/, function(req, res) {
+      app.get(/^((?!(api)).)*$/, function (req, res) {
         res.set('Cache-Control', 'public, max-age=31536001')
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
       })
     }
-    */
 
     // Liam Neeson reference: Taken (token)
     app.get('/api/liamNeeson', async (req, res) => {
