@@ -5,25 +5,26 @@ const request = require('request')
 const compression = require('compression')
 const path = require('path')
 
+// https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
 const options = {
-  method: 'GET',
-  url: 'https://accounts.spotify.com/en/authorize',
-  qs: {
-    client_id: process.env.SPOTIFY_CLIENT_ID,
-    response_type: 'token',
-    redirect_uri: 'http://localhost:5000/api'
-  }
+  method: 'POST',
+  url: 'https://accounts.spotify.com/api/token',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Basic ${process.env.BASE64_ENDODED_CLIENTID_COLON_CLIENTSECRET}`
+  },
+  qs: { grant_type: 'client_credentials' }
 }
 
 let parsedResult
 
-async function apiCall(options) {
+async function getAccessToken(options) {
   // (I.) promise to return the parsedResult for processing
   function spotifyRequest() {
     return new Promise(function (resolve, reject) {
       request(options, function (error, response, body) {
         try {
-          resolve(JSON.parse(body))
+          resolve(JSON.parse(body).access_token)
         } catch (e) {
           reject(e)
         }
@@ -58,11 +59,12 @@ function endpointCreation() {
     }
     */
 
-    app.get('/api/', async (req, res) => {
+    // Liam Neeson reference: Taken (token)
+    app.get('/api/liamNeeson', async (req, res) => {
       res.set('Cache-Control', 'no-cache')
-      res.json(await apiCall(options))
-      // res.json({ say: 'my name' })
-      console.log('/api/ endpoint has been called!')
+      const accessToken = await getAccessToken(options)
+      res.json(accessToken)
+      console.log(`/api/liamNeeson endpoint has been called! ${accessToken}`)
     })
 
     app.listen(port)
