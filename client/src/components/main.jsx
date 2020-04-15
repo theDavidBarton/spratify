@@ -3,13 +3,14 @@ import React, { useEffect, useState, Fragment } from 'react'
 export default function Main(props) {
   const [content, setContent] = useState(null)
   const [contentIsReady, setContentIsReady] = useState(false)
+  const [query] = useState('artist%3Athe+offspring')
 
   useEffect(() => {
     ;(async function getLiamNeeson() {
       try {
         if (props.dataIsReady) {
           const response = await fetch(
-            `https://api.spotify.com/v1/search?q=artist%3Ajohn%20lennon&type=album&limit=50&access_token=${props.data}&token_type=Bearer&expires_in=3600`
+            `https://api.spotify.com/v1/search?q=${query}&type=album&limit=50&access_token=${props.data}&token_type=Bearer&expires_in=3600`
           )
           const json = await response.json()
           setContent(json)
@@ -19,11 +20,11 @@ export default function Main(props) {
         console.error(e)
       }
     })()
-  }, [props.data, props.dataIsReady])
+  }, [props.data, props.dataIsReady, query])
 
   return (
     <Fragment>
-      <main className='bg-light'>
+      <main className='bg-light py-5'>
         <div className='container'>
           <div className='row'>
             <h1 className='col text-success'>Listening on Spratify</h1>
@@ -36,7 +37,9 @@ export default function Main(props) {
             <div className='col'>
               <h2>Why sprats?</h2>
               <div className='row'>
-                {contentIsReady ? content.albums.items.map(album => <AlbumItem key={album.id} album={album} />) : null}
+                {contentIsReady
+                  ? content.albums.items.map(a => (a.album_type === 'album' ? <AlbumItem key={a.id} album={a} /> : null))
+                  : null}
               </div>
             </div>
           </section>

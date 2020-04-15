@@ -1,13 +1,13 @@
 import React from 'react'
-import SearchForm from './searchForm'
-import logo from './../img/logo-big.svg'
+import Search from './search'
+import logo from './../img/logo-big-wt-txt.svg'
 import github from './../img/github.svg'
 import linkedin from './../img/linkedin.png'
 
-export default function Header(props) {
+export default function Header(props, { searchRef }) {
   return (
-    <header className='bg-dark p-3'>
-      <div className='container text-white'>
+    <header className='bg-dark text-light p-4'>
+      <div className='container'>
         <div className='row justify-content-md-center'>
           <div className='col'>
             <a href={'/'}>
@@ -15,8 +15,7 @@ export default function Header(props) {
             </a>
           </div>
           <div className='col-md-auto col-12 align-self-end order-1 order-md-0'>
-            <SearchForm data={props.data} dataIsReady={props.dataIsReady} />
-            <h1 className='d-none d-md-block'>search for music</h1>
+            {/* <Search searchRef={searchRef} data={props.data} dataIsReady={props.dataIsReady} />*/}
           </div>
           <div className='col-auto align-self-end my-2 d-none d-lg-block'>
             <ul className='list-unstyled align-bottom social-list-margin'>
