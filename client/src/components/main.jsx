@@ -3,7 +3,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 export default function Main(props) {
   const [content, setContent] = useState(null)
   const [contentIsReady, setContentIsReady] = useState(false)
-  const [query] = useState('artist%3Athe+offspring')
+  const [query] = useState('artist%3A' + props.forwardRef.current)
 
   useEffect(() => {
     ;(async function getLiamNeeson() {

@@ -1,18 +1,19 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import SearchDropdownItem, { SearchDropdownItemNoResult } from './searchDropdownItem'
 
-export default function Search(props, { searchRef }) {
+export default function Search(props) {
   const [content, setContent] = useState(null)
   const [contentIsReady, setContentIsReady] = useState(false)
   const [dropdownIsopened, setDropdownIsopened] = useState(false)
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState('the beatles')
 
-  console.log(content, contentIsReady)
+  console.log(props.forwardRef)
 
   useEffect(() => {
-    searchRef.current = keyword
-  }, [searchRef, keyword])
+    props.forwardRef.current = keyword
+  }, [props.forwardRef, keyword])
 
+  /*
   const autoComplete = async () => {
     try {
       if (keyword !== '') {
@@ -27,10 +28,10 @@ export default function Search(props, { searchRef }) {
       console.error(e)
     }
   }
-
+*/
   const setKeywordInInput = async event => {
     await setKeyword(event.target.value)
-    autoComplete()
+    // autoComplete()
     setDropdownIsopened(true)
   }
 

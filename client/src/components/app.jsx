@@ -7,9 +7,9 @@ import Footer from './footer'
 export default function App() {
   const [data, setData] = useState(null)
   const [dataIsReady, setDataIsReady] = useState(false)
-  const searchState = useRef(null)
+  const searchState = useRef('the+monkees')
 
-  console.log(searchState)
+  console.log(searchState.current)
 
   useEffect(() => {
     ;(async function () {
@@ -27,8 +27,8 @@ export default function App() {
   return (
     <div className='App'>
       <CookieBar />
-      <Header searchRef={searchState} data={data} dataIsReady={dataIsReady} />
-      <Main query={searchState} data={data} dataIsReady={dataIsReady} />
+      <Header forwardRef={searchState} data={data} dataIsReady={dataIsReady} />
+      <Main forwardRef={searchState} data={data} dataIsReady={dataIsReady} />
       <Footer />
     </div>
   )

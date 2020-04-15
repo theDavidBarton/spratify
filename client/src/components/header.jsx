@@ -4,7 +4,7 @@ import logo from './../img/logo-big-wt-txt.svg'
 import github from './../img/github.svg'
 import linkedin from './../img/linkedin.png'
 
-export default function Header(props, { searchRef }) {
+export default function Header(props) {
   return (
     <header className='bg-dark text-light p-4'>
       <div className='container'>
@@ -15,7 +15,7 @@ export default function Header(props, { searchRef }) {
             </a>
           </div>
           <div className='col-md-auto col-12 align-self-end order-1 order-md-0'>
-            {/* <Search searchRef={searchRef} data={props.data} dataIsReady={props.dataIsReady} />*/}
+            <Search forwardRef={props.forwardRef} data={props.data} dataIsReady={props.dataIsReady} />
           </div>
           <div className='col-auto align-self-end my-2 d-none d-lg-block'>
             <ul className='list-unstyled align-bottom social-list-margin'>
